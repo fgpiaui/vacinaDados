@@ -1,0 +1,44 @@
+<script>
+    // Build the chart
+Highcharts.chart('pizza_raca', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Distribuição de vacinas aplicadas por raça'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [
+        {% for vacina in data.info.raca_aplicada_cidade %}
+            {
+                name:'{{vacina.paciente_racacor_valor}}',
+                y:{{vacina.percentual}}
+            },
+        {% endfor %}
+    ]
+    }]
+});
+</script>

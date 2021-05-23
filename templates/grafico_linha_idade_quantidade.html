@@ -1,0 +1,73 @@
+<script>
+    Highcharts.chart('vacinacao_idade', {
+    chart:{
+        type:'area',
+    },
+    title: {
+        text: 'Vacinados Total por dia'
+    },
+
+    colors: ['coral', 'sienna', 'chocolate', 'darkorange', 'gold'],
+
+    subtitle: {
+        text: 'Vacinação'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Vacinados por idade'
+        }
+    },
+
+    xAxis: {
+        accessibility: {
+            rangeDescription: 'Idade'
+        },
+        categories: {{data.info.idade|safe}}
+    },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        area: {
+            marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                    hover: {
+                        enabled: true
+                    }
+                }
+            }
+        }
+    },
+
+    series:[
+        {
+            name: 'Vacinados',
+            data: {{data.info.quantidade_idade|safe}}
+        },
+    ],
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+
+</script>

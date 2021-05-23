@@ -1,0 +1,73 @@
+<script>
+    Highcharts.chart('media_movel', {
+    chart:{
+        type:'area',
+    },
+    title: {
+        text: 'Média movel 7 dias'
+    },
+
+    colors: ['sienna', 'chocolate', 'darkorange', 'gold'],
+
+    subtitle: {
+        text: 'Vacinação'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Média movel'
+        }
+    },
+
+    xAxis: {
+        accessibility: {
+            rangeDescription: 'Idade'
+        },
+        categories: {{data.info.datas|safe}}
+    },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        area: {
+            marker: {
+                enabled: false,
+                symbol: 'circle',
+                radius: 2,
+                states: {
+                    hover: {
+                        enabled: true
+                    }
+                }
+            }
+        }
+    },
+
+    series:[
+        {
+            name: 'Media Vacinados',
+            data: {{data.info.media_movel|safe}}
+        },
+    ],
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+});
+
+</script>

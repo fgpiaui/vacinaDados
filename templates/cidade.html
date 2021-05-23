@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cidades</title>
+</head>
+<body>
+<ul>
+    {% for cidade in data.cidades %}
+        <li><a href="cidade/{{data.estado}}/{{cidade}}">{{cidade}}</a></li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

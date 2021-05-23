@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+<div class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a href="/" class="pl-3">
+            <p class="h3">VACINADOS NO BRASIL</p>
+        </a>
+    </div>
+</div>
+<div class="container">
+    <div class="row mb-4 mt-2 border-2 border-bottom">
+        <div class="d-inline col-3">
+            <p class="d-inline font-weight-bold">Cidade: </p>
+            <h4 class="d-inline">{{data.cidade}}</h4>
+        </div>
+        <div class="d-inline col-3">
+            <p class="d-inline font-weight-bold">Taxa vacinação: </p>
+            <h5 class="d-inline">{{data.info.taxa_vacinacao|decimal}}%</h5>
+        </div>
+        <div class="d-inline col-3">
+            <p class="d-inline font-weight-bold">Pop. vacinada: </p>
+            <h5 class="d-inline">{{data.info.quantidade_vacina|separador}}</h5>
+        </div>
+        <div class="d-inline col-3">
+            <p class="d-inline font-weight-bold">Pop. (IBGE 2020): </p>
+            <h5 class="d-inline">{{data.info.populacao|separador}}</h5>
+        </div>
+    </div>
+    <div id="graficos" class="pb-2">
+        <ul class="nav nav-tabs" id="grafico-vacina" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="media-movel-tab" data-bs-toggle="tab" data-bs-target="#media-movel" type="button" role="tab" aria-controls="media-movel">Média Móvel</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="vacina-total-tab" data-bs-toggle="tab" data-bs-target="#vacina-total" type="button" role="tab" aria-controls="vacina-total">Vacina total por dia</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="vacina-diaria-tab" data-bs-toggle="tab" data-bs-target="#vacina-diaria" type="button" role="tab" aria-controls="vacina-diaria">Vacina dia a dia</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="vacina-idade-tab" data-bs-toggle="tab" data-bs-target="#vacina-idade" type="button" role="tab" aria-controls="vacina-idade">Vacina por idade</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="media-movel" role="tabpanel" aria-labelledby="media-movel-tab">
+                Média Movel
+                <div id="media_movel">
+                    {% include 'grafico_linha_media_movel.html' %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="vacina-total" role="tabpanel" aria-labelledby="vacina-total-tab">
+                Total
+                <div id="vacinacao_total">
+                    {% include 'grafico_linha_data_vacinacao_total.html' %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="vacina-diaria" role="tabpanel" aria-labelledby="vacina-diaria-tab">
+                Diaria
+                <div id="container">
+                    {% include 'grafico_linha_data_vacinacao.html' %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="vacina-idade" role="tabpanel" aria-labelledby="vacina-idade-tab">
+                Idade
+                <div id="vacinacao_idade">
+                    {% include 'grafico_linha_idade_quantidade.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="pizza_vacina_div" class="col-6 pb-2 border">
+        <div id="pizza_vacina">
+            {% include 'grafico_pizza_vacinas.html' %}
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                    <th>Vacina</th>
+                    <th>Quantidade</th>
+                </thead>
+                <tbody>
+                    {% for vacina in data.info.vacinas_aplicadas %}
+                        <tr>
+                            <td>{{vacina.vacina_nome}}</td>
+                            <td>{{vacina.quantidade_vacina|separador}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div id="pizza_raca_div" class="col-6 pb-2 border">
+        <div id="pizza_raca">
+            {% include 'grafico_pizza_raca.html' %}
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                    <th>Raça</th>
+                    <th>Quantidade</th>
+                </thead>
+                <tbody>
+                    {% for vacina in data.info.raca_aplicada_cidade %}
+                        <tr>
+                            <td>{{vacina.paciente_racacor_valor}}</td>
+                            <td>{{vacina.quantidade_vacina|separador}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div id="pizza_sexo_div" class="col-6 pb-2 border">
+        <div id="pizza_sexo">
+            {% include 'grafico_pizza_sexo.html' %}
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                    <th>Sexo</th>
+                    <th>Quantidade</th>
+                </thead>
+                <tbody>
+                    {% for vacina in data.info.sexo_aplicada_cidade %}
+                        <tr>
+                            <td>{{vacina.paciente_enumsexobiologico}}</td>
+                            <td>{{vacina.quantidade_vacina|separador}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div id="pizza_dose_div" class="col-6 pb-2 border">
+        <div id="pizza_dose">
+            {% include 'grafico_pizza_dose.html' %}
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                    <th>Dose</th>
+                    <th>Quantidade</th>
+                </thead>
+                <tbody>
+                    {% for vacina in data.info.descricao_dose_cidade %}
+                        <tr>
+                            <td>{{vacina.vacina_descricao_dose}}</td>
+                            <td>{{vacina.quantidade_vacina|separador}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

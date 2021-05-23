@@ -1,0 +1,44 @@
+<script>
+    // Build the chart
+Highcharts.chart('pizza_sexo', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Distribuição de vacinas aplicadas por sexo'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [
+        {% for vacina in data.info.sexo_aplicada_cidade %}
+            {
+                name:'{{vacina.paciente_enumsexobiologico}}',
+                y:{{vacina.percentual}}
+            },
+        {% endfor %}
+    ]
+    }]
+});
+</script>
