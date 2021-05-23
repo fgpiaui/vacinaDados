@@ -1,0 +1,7 @@
+Flask~=2.0.0
+pymongo~=3.11.4
+pandas~=1.2.4
+dask~=2021.5.0
+beautifulsoup4~=4.9.3
+pip~=21.1.1
+Unidecode~=1.2.0
