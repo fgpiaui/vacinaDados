@@ -18,7 +18,7 @@ def lista_urls(url):
     urls = list()
     estado = list()
     for tag in soup.find_all('a'):
-        if 'Dados MT' in str(tag.contents[0]) and 'Dados Completo' not in str(tag.contents[0]):
+        if 'Dados PA' in str(tag.contents[0]) and 'Dados Completo' not in str(tag.contents[0]):
             estado.append(str(tag.contents[0]).split()[1])
             urls.append(tag.attrs['href'])
             print(str(tag.contents[0]).split()[1])
