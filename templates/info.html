@@ -31,7 +31,7 @@
             <h5 class="d-inline">{{data.info.taxa_vacinacao|decimal}}%</h5>
         </div>
         <div class="d-inline col-3">
-            <p class="d-inline font-weight-bold">Pop. vacinada: </p>
+            <p class="d-inline font-weight-bold">Doses Aplicadas: </p>
             <h5 class="d-inline">{{data.info.quantidade_vacina|separador}}</h5>
         </div>
         <div class="d-inline col-3">
@@ -150,16 +150,18 @@
             {% include 'grafico_pizza_dose.html' %}
         </div>
         <div>
-            <table class="table">
+            <table class="table table-sm">
                 <thead>
                     <th>Dose</th>
                     <th>Quantidade</th>
+                    <th>% População</th>
                 </thead>
                 <tbody>
                     {% for vacina in data.info.descricao_dose_cidade %}
                         <tr>
                             <td>{{vacina.vacina_descricao_dose}}</td>
                             <td>{{vacina.quantidade_vacina|separador}}</td>
+                            <td>{{vacina.per_populacao|decimal}}%</td>
                         </tr>
                     {% endfor %}
                 </tbody>

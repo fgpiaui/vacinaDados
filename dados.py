@@ -4,7 +4,7 @@ def ler_estados(banco):
 
 def ler_cidades(banco, estado):
     colecao = list(banco[estado].find())[0]
-    return list(filter(lambda key: key != '_id', colecao.keys()))
+    return list(filter(lambda key: key not in ['_id', 'top_2_dose', 'top_1_dose'], colecao.keys()))
 
 def converte_inteiro(lista, chave):
     for dicionario in lista:
@@ -12,6 +12,15 @@ def converte_inteiro(lista, chave):
 
     return lista
 
+def ranking_doses( banco):
+    ranking = dict()
+    for estado in banco.collection_names():
+        #colecao = list(banco[estado].find())[0]
+        ranking[estado] = list(banco[estado].find({},{'top_1_dose':1, 'top_2_dose':2, '_id':0}))[0]
+        if len(ranking[estado])==0:
+            ranking[estado] = {'top_2_dose':{'cidade':'','taxa':''},'top_1_dose':{'cidade':'','taxa':''}}
+
+    return ranking
 
 def ler_info(banco, cidade, estado):
     lista = list(banco[estado].find())[0][cidade]

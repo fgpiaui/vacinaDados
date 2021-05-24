@@ -1,7 +1,8 @@
 from flask import Flask, render_template
 from pymongo import MongoClient
 
-from dados import ler_estados, ler_cidades, ler_info, estados_cidades
+from dados import ler_estados, ler_cidades, ler_info, estados_cidades, ranking_doses
+from dicionario_estado_cidade import dados
 from main2 import ler_dados, salva_dados, lista_urls, trata_municipios
 
 app = Flask(__name__)
@@ -22,12 +23,14 @@ def decimal(valor):
 @app.route('/')
 def home():
     #estados = ler_estados(banco)
-    estados, cidades = estados_cidades(banco)
+    #estados, cidades = estados_cidades(banco)
 
-    dados = {
-        'estados':estados,
-        'cidades':cidades
-    }
+    # dados = {
+    #     'estados':estados,
+    #     'cidades':cidades
+    # }
+    ranking = ranking_doses(banco)
+    dados['ranking'] = ranking
     return render_template("estado.html", data=dados)
 
 @app.route('/estado/cidade/<estado>/<cidade>')

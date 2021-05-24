@@ -26,13 +26,50 @@
     <div class="tab-content border-0" id="myTabContent">
         {% for estado in data.estados %}
             <div class="tab-pane fade" id="{{estado}}" role="tabpanel" aria-labelledby="{{estado}}-tab">
-                <div class="row">
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <p class="h3">Ranking 2ª Dose</p>
+                        <table class="table table-sm">
+                            <thead>
+                                <th>Cidade</th>
+                                <th>Taxa</th>
+                            </thead>
+                            <tbody>
+                                {% for valor in data.ranking[estado].top_2_dose %}
+                                    <tr>
+                                        <td><a class="text-decoration-none align-middle" role="button" href="estado/cidade/{{estado}}/{{valor.cidade}}">{{valor.cidade}}</a></td>
+                                        <td><a class="text-decoration-none align-middle" role="button" href="estado/cidade/{{estado}}/{{valor.cidade}}">{{valor.taxa|decimal}}%</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <p class="h3">Ranking 1ª Dose</p>
+                        <table class="table table-sm">
+                            <thead>
+                                <th>Cidade</th>
+                                <th>Taxa</th>
+                            </thead>
+                            <tbody>
+                                {% for valor in data.ranking[estado].top_1_dose %}
+                                <tr>
+                                    <td><a class="text-decoration-none align-middle" role="button" href="estado/cidade/{{estado}}/{{valor.cidade}}">{{valor.cidade}}</a></td>
+                                    <td><a class="text-decoration-none align-middle" role="button" href="estado/cidade/{{estado}}/{{valor.cidade}}">{{valor.taxa|decimal}}%</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
                     {% for cidade in data.cidades[estado] %}
                         <div class="col-2 btn btn-light d-flex justify-content-center align-items-center">
                             <a class="text-decoration-none align-middle" role="button" href="estado/cidade/{{estado}}/{{cidade}}">{{cidade}}</a>
                         </div>
                     {% endfor %}
                 </div>
+                    </div>
+                </div>
+
             </div>
         {% endfor %}
     </div>

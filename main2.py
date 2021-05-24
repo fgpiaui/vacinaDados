@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from pip._vendor import requests
 import dask.dataframe as dd
 import pandas as pd
+pd.options.mode.chained_assignment = None
 from unidecode import unidecode
 
 
@@ -18,7 +19,7 @@ def lista_urls(url):
     urls = list()
     estado = list()
     for tag in soup.find_all('a'):
-        if 'Dados RN' in str(tag.contents[0]) and 'Dados Completo' not in str(tag.contents[0]):
+        if 'Dados AC' in str(tag.contents[0]) and 'Dados Completo' not in str(tag.contents[0]):
             estado.append(str(tag.contents[0]).split()[1])
             urls.append(tag.attrs['href'])
             print(str(tag.contents[0]).split()[1])
@@ -44,6 +45,7 @@ def ler_dados(url, estado, municipios):
     sexo_aplicada = cidade.vacinas_aplicadas('paciente_enumsexobiologico')
     idade_aplicada = cidade.vacinas_aplicadas('paciente_idade')
     descricao_dose = cidade.vacinas_aplicadas('vacina_descricao_dose')
+    cidade.taxa_doses_por_cidade(descricao_dose)
     cidade.cria_dicionario(vacinas, df_taxa_vacinacao, vacinas_aplicadas, raca_aplicada,
                            sexo_aplicada, idade_aplicada, descricao_dose)
 
