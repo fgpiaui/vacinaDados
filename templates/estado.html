@@ -28,8 +28,8 @@
             <div class="tab-pane fade" id="{{estado}}" role="tabpanel" aria-labelledby="{{estado}}-tab">
                 <div class="row">
                     {% for cidade in data.cidades[estado] %}
-                        <div class="col-2 btn btn-light border-1 justify-content-center align-items-center">
-                            <a class="text-decoration-none" role="button" href="estado/cidade/{{estado}}/{{cidade}}">{{cidade}}</a>
+                        <div class="col-2 btn btn-light d-flex justify-content-center align-items-center">
+                            <a class="text-decoration-none align-middle" role="button" href="estado/cidade/{{estado}}/{{cidade}}">{{cidade}}</a>
                         </div>
                     {% endfor %}
                 </div>
