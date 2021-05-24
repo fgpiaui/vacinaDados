@@ -15,7 +15,7 @@
 <body>
 <div class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a href="/" class="pl-3">
+        <a href="/" class="pl-3 text-decoration-none">
             <p class="h3">VACINADOS NO BRASIL</p>
         </a>
     </div>
@@ -56,25 +56,25 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="media-movel" role="tabpanel" aria-labelledby="media-movel-tab">
-                Média Movel
+
                 <div id="media_movel">
                     {% include 'grafico_linha_media_movel.html' %}
                 </div>
             </div>
             <div class="tab-pane fade" id="vacina-total" role="tabpanel" aria-labelledby="vacina-total-tab">
-                Total
+
                 <div id="vacinacao_total">
                     {% include 'grafico_linha_data_vacinacao_total.html' %}
                 </div>
             </div>
             <div class="tab-pane fade" id="vacina-diaria" role="tabpanel" aria-labelledby="vacina-diaria-tab">
-                Diaria
+
                 <div id="container">
                     {% include 'grafico_linha_data_vacinacao.html' %}
                 </div>
             </div>
             <div class="tab-pane fade" id="vacina-idade" role="tabpanel" aria-labelledby="vacina-idade-tab">
-                Idade
+
                 <div id="vacinacao_idade">
                     {% include 'grafico_linha_idade_quantidade.html' %}
                 </div>
